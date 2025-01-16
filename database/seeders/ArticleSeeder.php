@@ -21,7 +21,7 @@ class ArticleSeeder extends Seeder
                 'title' => $faker->sentence,
                 'content' => $faker->paragraph,
                 'author' => $faker->name,
-                'image' => "https://picsum.photos/200/" . $faker->numberBetween(200, 300),
+                'image' => "images/pic-" . ($i % 23 + 1) . ".jpg",
                 'start_article' => $faker->paragraph,
                 'slug' => $faker->slug,
                 'category_id' => $faker

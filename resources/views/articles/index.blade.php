@@ -30,7 +30,7 @@
 
                         </div>
                         <div class="card-footer text-center">
-                            <a href="" class="btn btn-link">Read More</a>
+                            <a href="{{ route('articles.show', $article->slug) }}" class="btn btn-link">Read More</a>
                         </div>
                     </div>
                 </div>
