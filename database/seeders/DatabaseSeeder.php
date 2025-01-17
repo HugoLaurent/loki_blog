@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             [
                 CategorySeeder::class,
                 ArticleSeeder::class,
+                CommentSeeder::class,
+                UserSeeder::class,
             ]
         );
     }

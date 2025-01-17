@@ -4,7 +4,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- On appelle la section title créée dans les vues -->
     <title>@yield('title')</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -17,7 +16,6 @@
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
-        <!-- Container wrapper -->
         <div class="container-fluid">
             <!-- Toggle button -->
             <button data-mdb-collapse-init class="navbar-toggler" type="button"
@@ -41,34 +39,39 @@
                         <a class="nav-link" href="{{ route('articles.create') }}">Create article</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Projects</a>
+                        <a class="nav-link" href="{{ route('contact.index') }}">Contact</a>
                     </li>
+                    @if (auth()->check())
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Manage
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{{ route('categories.index') }}">Categories</a></li>
+                                <li><a class="dropdown-item" href="{{ route('comments.index') }}">Comments</a></li>
+                                <li><a class="dropdown-item" href="{{ route('contact.show') }}">See Messages</a></li>
+
+                            </ul>
+                        </li>
+                    @endif
                 </ul>
-                <!-- Left links -->
+                <!-- Right links -->
+                <div>
+                    @if (auth()->check())
+                        <a href="{{ route('login.logout') }}" class="btn btn-outline-danger">Log Out</a>
+                    @else
+                        <a href="{{ route('auth.login') }}" class="btn btn-outline-primary">Log In</a>
+                    @endif
+                </div>
             </div>
-
-
         </div>
-        <!-- Container wrapper -->
     </nav>
     <!-- Navbar -->
 
-    <main class="container my-5 p-3">
-        <!-- On appelle la section content créée dans les vues -->
+    <main class="container mt-5 p-3" style="margin-bottom: 4rem">
         @yield('content')
     </main>
-
-    <footer class="bg-body-tertiary text-center fixed-bottom">
-
-        <!-- Copyright -->
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-            © 2020 Copyright:
-            <p class="text-body">CrazyCat</p>
-        </div>
-        <!-- Copyright -->
-    </footer>
-
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">

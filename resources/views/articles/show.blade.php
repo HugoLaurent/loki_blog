@@ -18,81 +18,110 @@
                     </div>
                     <div class="card-footer">
                         <a href="{{ url()->previous() }}" class="btn btn-secondary">Back to Articles</a>
-                        <a href="{{ route('articles.edit', ['slug' => $article->slug]) }}" class="btn btn-primary">Edit
-                            Article</a>
-                        <form action="{{ route('articles.destroy', ['slug' => $article->slug]) }}" method="POST"
-                            onsubmit="return confirm('Are you sure you want to delete this article?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete Article</button>
-                        </form>
-
+                        @if (auth()->check())
+                            <a href="{{ route('articles.edit', ['slug' => $article->slug]) }}" class="btn btn-primary">Edit
+                                Article</a>
+                            <form action="{{ route('articles.destroy', ['slug' => $article->slug]) }}" method="POST"
+                                onsubmit="return confirm('Are you sure you want to delete this article?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete Article</button>
+                            </form>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row">
+            @if ($article->comments->isEmpty())
+                <div class="col-md-8 offset-md-2">
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h2>Comments</h2>
+                        </div>
+                        <div class="card-body">
+                            <p>No comments available.</p>
+                        </div>
+                    </div>
+                </div>
+            @endif
+            @foreach ($article->comments as $comment)
+                <div class="col-md-8 offset-md-2">
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <small class="text-muted">By {{ $comment->name }} |
+                                {{ $comment->created_at->diffForHumans() }}
+                            </small>
+                            <p>
+                                {{ $comment->message }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </div>
-    <style>
-        .card-header h2 {
-            font-size: 2rem;
-            font-weight: bold;
-        }
-
-        .card-body {
-            text-align: justify;
-            line-height: 1.6;
-        }
-
-        .card-body img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 5px;
-        }
-
-        .card-footer {
-            text-align: center;
-            padding-top: 20px;
-            padding-bottom: 10px;
-        }
-
-        .card-footer a,
-        .card-footer button {
-            text-decoration: none;
-            font-weight: bold;
-            padding: 10px 20px;
-            margin: 5px;
-            border-radius: 5px;
-        }
-
-        .card-footer .btn-secondary {
-            background-color: #6c757d;
-            color: white;
-        }
-
-        .card-footer .btn-secondary:hover {
-            background-color: #5a6268;
-        }
-
-        .card-footer .btn-primary {
-            background-color: #007bff;
-            color: white;
-        }
-
-        .card-footer .btn-primary:hover {
-            background-color: #0056b3;
-        }
-
-        .card-footer .btn-danger {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        .card-footer .btn-danger:hover {
-            background-color: #c82333;
-        }
-
-        .container {
-            margin-top: 30px;
-        }
-    </style>
 @endsection
+<style>
+    .card-header h2 {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    .card-body {
+        text-align: justify;
+        line-height: 1.6;
+    }
+
+    .card-body img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+    }
+
+    .card-footer {
+        text-align: center;
+        padding-top: 20px;
+        padding-bottom: 10px;
+    }
+
+    .card-footer a,
+    .card-footer button {
+        text-decoration: none;
+        font-weight: bold;
+        padding: 10px 20px;
+        margin: 5px;
+        border-radius: 5px;
+    }
+
+    .card-footer .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .card-footer .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+
+    .card-footer .btn-primary {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .card-footer .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .card-footer .btn-danger {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .card-footer .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+    .container {
+        margin-top: 30px;
+    }
+</style>

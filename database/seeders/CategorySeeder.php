@@ -23,6 +23,7 @@ class CategorySeeder extends Seeder
             ['name' => 'World', 'description' => 'World news'],
             ['name' => 'Local', 'description' => 'Local news'],
             ['name' => 'Opinion', 'description' => 'Opinion news'],
+            ['name' => 'Other', 'description' => 'Other news'],
         ];
 
         foreach ($categories as $category) {

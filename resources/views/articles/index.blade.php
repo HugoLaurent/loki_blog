@@ -37,12 +37,10 @@
             @endforeach
         </div>
 
-        {{--        
-        <div class="row justify-content-center">
-            <div class="col-md-4">
-                {{ $articles->links() }}
-            </div>
-        </div> --}}
+        <div class="">
+            {{ $articles->links('pagination::bootstrap-5') }}
+        </div>
+
     </div>
 
     <style>

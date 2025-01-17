@@ -18,15 +18,14 @@ class ArticlesController extends Controller
             $query->where('category_id', $request->category_id);
         }
 
-        $articles = $query->get();
+        $articles = $query->paginate(6);
 
         return view('articles.index', compact('articles', 'categories'));
     }
 
     public function show($slug)
     {
-        $article = Article::with('category')->where('slug', $slug)->firstOrFail();
-
+        $article = Article::with(['category', 'comments'])->where('slug', $slug)->firstOrFail();
         return view('articles.show', compact('article'));
     }
 
